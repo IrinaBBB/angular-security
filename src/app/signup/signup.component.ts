@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
+import { response } from 'express';
 
 @Component({
     // tslint:disable-next-line:component-selector
@@ -11,7 +13,13 @@ export class SignupComponent implements OnInit {
     form: FormGroup;
     errors: string[] = [];
 
-    constructor(private fb: FormBuilder) {
+    messagePerErrorCode = {
+        min: 'The minimum length is 10 characters',
+        uppercase: 'At least one upper case character',
+        digits: 'At least one numeric character',
+    };
+
+    constructor(private fb: FormBuilder, private authService: AuthService) {
         this.form = this.fb.group({
             email: ['', Validators.required],
             password: ['', Validators.required],
@@ -24,5 +32,13 @@ export class SignupComponent implements OnInit {
 
     signUp(): void {
         const val = this.form.value;
+
+        if (val.email && val.password && val.password === val.confirm) {
+            this.authService.signUp(val.email, val.password).subscribe(
+                () => console.log('User created successfully'),
+                // tslint:disable-next-line:no-shadowed-variable
+                (response) => (this.errors = response.error.errors)
+            );
+        }
     }
 }

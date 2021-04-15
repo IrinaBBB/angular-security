@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { routesConfig } from './routes.config';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
     declarations: [
@@ -26,7 +27,7 @@ import { routesConfig } from './routes.config';
         RouterModule.forRoot(routesConfig),
         ReactiveFormsModule,
     ],
-    providers: [LessonsService],
+    providers: [LessonsService, AuthService],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,15 +1,14 @@
-<form autocomplete="off" novalidate [formGroup]="form">
-    <div class="messages messages-error" *ngIf="errors?.length">
-        <div class="messages-container">
-            <div *ngFor="let error of errors">
-                {{ messagePerErrorCode[error] }}
-            </div>
-        </div>
+<div class="messages messages-error" *ngIf="errors?.length">
+    <div class="messages-container">
+        <div *ngFor="let error of errors">{{ messagePerErrorCode[error] }}</div>
     </div>
+    <!-- /.messages-container -->
+</div>
+<!-- /.messages messages-error -->
 
+<form autocomplete="off" novalidate [formGroup]="form">
     <fieldset>
         <legend>Sign Up</legend>
-
         <div class="form-field">
             <label>Email:</label>
             <input name="email" formControlName="email" />
