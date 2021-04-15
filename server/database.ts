@@ -9,6 +9,20 @@ class InMemoryDatabase {
     readAllLessons() {
         return _.values(LESSONS);
     }
+
+    createUser(email: string, password: string): DbUser {
+        this.userCounter++;
+
+        const id = this.userCounter;
+        const user: DbUser = {
+            id,
+            email,
+            passwordDigest: password,
+        };
+
+        USERS[id] = user;
+        return user;
+    }
 }
 
 export const db = new InMemoryDatabase();
