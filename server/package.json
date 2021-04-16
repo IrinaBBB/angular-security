@@ -14,6 +14,7 @@
     "argon2": "^0.27.2",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "moment": "^2.29.1",
     "password-validator": "^5.1.1",
     "ts-node": "^9.1.1",
     "ts-node-dev": "^1.1.6",

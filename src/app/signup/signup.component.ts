@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { response } from 'express';
+import { Router } from '@angular/router';
 
 @Component({
     // tslint:disable-next-line:component-selector
@@ -19,11 +20,15 @@ export class SignupComponent implements OnInit {
         digits: 'At least one numeric character',
     };
 
-    constructor(private fb: FormBuilder, private authService: AuthService) {
+    constructor(
+        private fb: FormBuilder,
+        private authService: AuthService,
+        private router: Router
+    ) {
         this.form = this.fb.group({
-            email: ['', Validators.required],
-            password: ['', Validators.required],
-            confirm: ['', Validators.required],
+            email: ['test@gmail.com', Validators.required],
+            password: ['Pa$$w0rd', Validators.required],
+            confirm: ['Pa$$w0rd', Validators.required],
         });
     }
 
@@ -35,7 +40,10 @@ export class SignupComponent implements OnInit {
 
         if (val.email && val.password && val.password === val.confirm) {
             this.authService.signUp(val.email, val.password).subscribe(
-                () => console.log('User created successfully'),
+                () => {
+                    this.router.navigateByUrl('/');
+                    console.log('User created successfully');
+                },
                 // tslint:disable-next-line:no-shadowed-variable
                 (response) => (this.errors = response.error.errors)
             );
